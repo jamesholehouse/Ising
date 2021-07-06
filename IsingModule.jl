@@ -61,29 +61,29 @@ module IsingModelTest
     function hₑ(i::Int64, j::Int64, S::Matrix{Float64}, IM::IsingModel, periodic::Int64)
         @unpack J, h, N, fully_connected = IM;
         if fully_connected == 1
-            return 2*h + (J/N)*(sum(S)-S[i,j]) # J scaled by N.
+            return 2*h + 2*(J/N)*(sum(S)-S[i,j]) # J scaled by N.
         elseif fully_connected == 0 && periodic == 0
             if i==1 && j==1
-                return 2*h + J*(S[i+1,j]+S[i,j+1])
+                return 2*h + 2*J*(S[i+1,j]+S[i,j+1])
             elseif i==N && j==N
-                return 2*h + J*(S[i-1,j]+S[i,j-1])
+                return 2*h + 2*J*(S[i-1,j]+S[i,j-1])
             elseif i==1 && j==N
-                return 2*h + J*(S[i+1,j]+S[i,j-1])
+                return 2*h + 2*J*(S[i+1,j]+S[i,j-1])
             elseif i==N && j==1
-                return 2*h + J*(S[i-1,j]+S[i,j+1])
+                return 2*h + 2*J*(S[i-1,j]+S[i,j+1])
             elseif i==1
-                return 2*h + J*(S[i+1,j]+S[i,j+1]+S[i,j-1])
+                return 2*h + 2*J*(S[i+1,j]+S[i,j+1]+S[i,j-1])
             elseif j==1
-                return 2*h + J*(S[i+1,j]+S[i-1,j]+S[i,j+1])
+                return 2*h + 2*J*(S[i+1,j]+S[i-1,j]+S[i,j+1])
             elseif i==N
-                return 2*h + J*(S[i-1,j]+S[i,j+1]+S[i,j-1])
+                return 2*h + 2*J*(S[i-1,j]+S[i,j+1]+S[i,j-1])
             elseif j==N
-                return 2*h + J*(S[i+1,j]+S[i-1,j]+S[i,j-1])
+                return 2*h + 2*J*(S[i+1,j]+S[i-1,j]+S[i,j-1])
             else
-                return 2*h + J*(S[i+1,j]+S[i-1,j]+S[i,j+1]+S[i,j-1])
+                return 2*h + 2*J*(S[i+1,j]+S[i-1,j]+S[i,j+1]+S[i,j-1])
             end
         else # is periodic BC
-            return 2*h + J*(S[mod1(i+1,N),j]+S[mod1(i-1,N),j]+S[i,mod1(j+1,N)]+S[i,mod1(j-1,N)])
+            return 2*h + 2*J*(S[mod1(i+1,N),j]+S[mod1(i-1,N),j]+S[i,mod1(j+1,N)]+S[i,mod1(j-1,N)])
         end
     end
 
@@ -95,29 +95,29 @@ module IsingModelTest
         m = mean(S);
         Jm = J*m;
         if fully_connected == 1
-            return 2*h + J*m # J scaled by N.
+            return 2*h + 2*J*m # J scaled by N.
         elseif fully_connected == 0 && periodic == 0
             if i==1 && j==1
-                return 2*h + 2*Jm
+                return 2*h + 2*2*Jm
             elseif i==N && j==N
-                return 2*h + 2*Jm
+                return 2*h + 2*2*Jm
             elseif i==1 && j==N
-                return 2*h + 2*Jm
+                return 2*h + 2*2*Jm
             elseif i==N && j==1
-                return 2*h + 2*Jm
+                return 2*h + 2*2*Jm
             elseif i==1
-                return 2*h + 3*Jm
+                return 2*h + 2*3*Jm
             elseif j==1
-                return 2*h + 3*Jm
+                return 2*h + 2*3*Jm
             elseif i==N
-                return 2*h + 3*Jm
+                return 2*h + 2*3*Jm
             elseif j==N
-                return 2*h + 3*Jm
+                return 2*h + 2*3*Jm
             else
-                return 2*h + 4*Jm
+                return 2*h + 2*4*Jm
             end
         else # is periodic BC
-            return 2*h + 4*Jm
+            return 2*h + 2*4*Jm
         end
     end
 
